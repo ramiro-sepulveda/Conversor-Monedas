@@ -14,7 +14,7 @@ async function valoresMonedas() {
     const res = await fetch(apiURL);
     const data = await res.json();
     const monedas = Object.values(data);
-    return monedas.splice(3, 12);
+    return monedas.splice(3, 12).filter((moneda=>moneda.unidad_medida == 'Pesos'));
   } catch (e) {
     alert(e.message);
     resultadoConversion.innerHTML = "Ha ocurrdio un error en el servidor";
