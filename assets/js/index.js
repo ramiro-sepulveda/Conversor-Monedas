@@ -1,4 +1,5 @@
 //Tomar ID necesarias
+
 const botonResultado = document.getElementById("boton-calculo");
 const selectMoneda = document.getElementById("select-moneda");
 const resultadoConversion = document.getElementById("resultado");
@@ -14,12 +15,13 @@ async function valoresMonedas() {
     const res = await fetch(apiURL);
     const data = await res.json();
     const monedas = Object.values(data);
-    return monedas.splice(3, 12).filter((moneda=>moneda.unidad_medida == 'Pesos'));
+    return monedas.filter((moneda) => moneda.unidad_medida == "Pesos");
   } catch (e) {
     alert(e.message);
     resultadoConversion.innerHTML = "Ha ocurrdio un error en el servidor";
   }
 }
+
 //Agregar monedas API al Select Form
 
 async function dataSelect() {
@@ -33,7 +35,7 @@ async function dataSelect() {
   return opcionesMonedas;
 }
 
-//Funcion DATA para grafico
+//Funcion de datos para grafico
 
 async function graficoValores() {
   const apiGrafico =
@@ -67,7 +69,9 @@ async function graficoValores() {
     labels: ejeFechas,
     datasets: [
       {
-        label: "Valor en Pesos Chilenos de una (1) unidad de: "+monedaSeleccionada[3],
+        label:
+          "Valor en Pesos Chilenos de una (1) unidad de: " +
+          monedaSeleccionada[3],
         borderColor: "rgb(255, 99, 132)",
         data: ejeValores,
       },
@@ -99,8 +103,6 @@ async function renderGrafica() {
   }
 }
 
-dataSelect();
-
 //Formula multiplicar INPUT x Valor Moneda y mostrar en P
 
 botonResultado.addEventListener("click", () => {
@@ -126,3 +128,5 @@ botonResultado.addEventListener("click", () => {
     } catch {}
   }
 });
+
+dataSelect();
